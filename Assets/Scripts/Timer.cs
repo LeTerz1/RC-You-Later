@@ -4,7 +4,7 @@ using System.Diagnostics;
 public static class Timer
 {
     private static readonly Stopwatch stopwatch = new();
-    private static readonly List<long> steps = new();
+    private static readonly List<long> steps = new(); //variable a save
 
     public static bool IsRunning
     {
@@ -53,6 +53,7 @@ public static class Timer
     public static void Save()
     {
         // TODO : save our time steps (line 7 of this script) inside a file.
+        //test
     }
 
     public static void Load()
