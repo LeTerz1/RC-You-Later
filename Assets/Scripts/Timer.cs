@@ -61,7 +61,10 @@ public static class Timer
 
         if(File.Exists(path))
         {
-            string[] lines = File.ReadAllLines(path);
+            string encoded = File.ReadAllText(path);
+            string decoded = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(encoded));
+            string[] lines = decoded.Split('\n');
+
             if (lines.Length > 0 && long.TryParse(lines[lines.Length-1], out long bestTime))
             {
                 if (currentTime < bestTime)
@@ -77,14 +80,15 @@ public static class Timer
         }
 
         List<string> linesToSave = new List<string>();
-
-
         foreach (long step in steps)
         {
             linesToSave.Add(step.ToString());
         }
 
-        File.WriteAllLines(path, linesToSave);
+        string joined = string.Join("\n", linesToSave);
+        string encodedData = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(joined));
+
+        File.WriteAllText(path, encodedData);
     }
 
     public static void Load()
@@ -101,8 +105,12 @@ public static class Timer
             return;
         }
 
-        string[] lines = File.ReadAllLines(path);
+        string encoded = File.ReadAllText(path);
+        string decoded = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(encoded));
+        string[] lines = decoded.Split('\n');
+
         steps.Clear();
+
         foreach (string line in lines)
         {
             if (long.TryParse(line, out long value))
