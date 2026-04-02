@@ -57,15 +57,34 @@ public static class Timer
         // TODO : save our time steps (line 7 of this script) inside a file.
         string path = Application.dataPath + "/score.txt";
 
-        List<string> lines = new List<string>();
+        long currentTime = stopwatch.ElapsedMilliseconds;
+
+        if(File.Exists(path))
+        {
+            string[] lines = File.ReadAllLines(path);
+            if (lines.Length > 0 && long.TryParse(lines[lines.Length-1], out long bestTime))
+            {
+                if (currentTime < bestTime)
+                {
+                    UnityEngine.Debug.Log("New record! " + currentTime + "ms");
+                }
+                else
+                {
+                    UnityEngine.Debug.Log("Record not beaten. Current time: " + currentTime + "ms, Best time: " + bestTime + "ms");
+                    return;
+                }
+            }
+        }
+
+        List<string> linesToSave = new List<string>();
+
 
         foreach (long step in steps)
         {
-            lines.Add(step.ToString());
+            linesToSave.Add(step.ToString());
         }
 
-        File.WriteAllLines(path, lines);
-        UnityEngine.Debug.Log("Saved score to " + path);
+        File.WriteAllLines(path, linesToSave);
     }
 
     public static void Load()
