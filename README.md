@@ -53,5 +53,8 @@ Il y a quelque assets dans le dossier des Models mais tu peux en importer d'autr
 
 Ce que tu a rajouté dans le projet :
 
-
+- Remplacement du kart par la voiture de police (+gyrophare)
+- Ajout de sensation de vitesse sans modifier sa valeur (VFX, FOV caméra)
+- Modification du compteur de vitesse
+- Props sur le circuit (arbres et plots)
 

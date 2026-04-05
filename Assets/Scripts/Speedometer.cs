@@ -14,7 +14,8 @@ public class Speedometer : MonoBehaviour
     private List<FrameData> buffer = new();
 
     [SerializeField]
-    private TextMeshPro label = null;
+    private TextMeshProUGUI label = null;
+    public int kmPerHour = 0;
 
     private void Start()
     {
@@ -56,7 +57,7 @@ public class Speedometer : MonoBehaviour
             bufferFrameCount++;
         }
 
-        int kmPerHour = 0;
+        kmPerHour = 0;
         if (bufferFrameCount > 0)
         {
             // https://www.checkyourmath.com/convert/speed/per_second_hour/m_per_second_km_per_hour.php
